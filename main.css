@@ -1,0 +1,37 @@
+body {
+    background-color: rgb(124, 56, 0);
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+}
+
+.snake {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+}
+
+.snake-head {
+    background-image: url('./assets/head.png');
+    width: 128px;
+    height: 128px;
+    background-repeat: no-repeat;
+    transform: rotateZ(180deg);
+}
+
+.snake-body {
+    background-image: url('./assets/body.png');
+    width: 128px;
+    height: 128px;
+    background-repeat: no-repeat;
+    transform: rotateZ(180deg);
+}
+
+.snake-tail {
+    background-image: url('./assets/tail.png');
+    width: 128px;
+    height: 128px;
+    background-repeat: no-repeat;
+    transform: rotateZ(180deg);
+}
