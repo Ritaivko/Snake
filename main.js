@@ -22,10 +22,10 @@ let snake = document.getElementById('snake');
 const windowWidth = document.documentElement.clientWidth;
 const windowHeight = document.documentElement.clientHeight;
 const snakeWidth = 384;
-const left = '37';
-const up = '38';
-const right = '39';
-const down = '40';
+const left = 'ArrowLeft';
+const up = 'ArrowUp';
+const right = 'ArrowRight';
+const down = 'ArrowDown';
 
 createInterval(snake);
 
@@ -41,7 +41,7 @@ function createInterval(element) {
             isAdded = true;
             let newSnake = document.createElement('div');
             newSnake.innerHTML = element.innerHTML;
-            newSnake.classList.add(['snake']);
+            newSnake.classList = element.classList;
             newSnake.style.left = -snakeWidth + 'px';
             document.body.appendChild(newSnake);
             createInterval(newSnake);
@@ -54,21 +54,38 @@ function createInterval(element) {
 }
 
 function rotateSnake(event) {
-    switch (event.keyCode) {
+    let snakes = document.getElementsByClassName('snake');
+    switch (event.key) {
         case left: {
-            console.log('left');
+            for (let i = 0; i < snakes.length; i++) {
+                snakes[i].classList.remove(['snake-bottom']);
+                snakes[i].classList.remove(['snake-right']);
+                snakes[i].classList.remove(['snake-top']);
+             }
             break;
         } 
         case up: {
-            console.log('up');
+            for (let i = 0; i < snakes.length; i++) {
+                snakes[i].classList.remove(['snake-bottom']);
+                snakes[i].classList.remove(['snake-right']);
+               snakes[i].classList.add(['snake-top']);  
+            }
             break;
         }
         case right: {
-            console.log('right');
+            for (let i = 0; i < snakes.length; i++) {
+                snakes[i].classList.remove(['snake-bottom']);
+                snakes[i].classList.remove(['snake-top']);
+                snakes[i].classList.add(['snake-right']);  
+             }
             break;
         }
         case down: {
-            console.log('down');
+            for (let i = 0; i < snakes.length; i++) {
+                snakes[i].classList.remove(['snake-right']);
+                snakes[i].classList.remove(['snake-top']);
+                snakes[i].classList.add(['snake-bottom']);  
+             }
             break;
         }
     }

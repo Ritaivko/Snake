@@ -8,6 +8,8 @@ body {
 
 .snake {
     position: absolute;
+    display: flex;
+    flex-direction: row;
 }
 
 .snake-head {
@@ -31,14 +33,26 @@ body {
     background-repeat: no-repeat;
 }
 
-.snake-right {
+.snake-right * {
     transform: rotateZ(180deg);
 }
 
-.snake-top {
+.snake-top * {
     transform: rotateZ(90deg);
 }
 
-.snake-bottom {
+.snake-bottom * {
     transform: rotateZ(270deg);
+}
+
+.snake-right {
+    flex-direction: row-reverse;
+}
+
+.snake-top {
+    flex-direction: column;
+}
+
+.snake-bottom {
+    flex-direction: column-reverse;
 }
