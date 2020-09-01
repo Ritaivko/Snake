@@ -26,7 +26,12 @@ const left = 'ArrowLeft';
 const up = 'ArrowUp';
 const right = 'ArrowRight';
 const down = 'ArrowDown';
+const leftOffsetProp = 'right';
+const rightOffsetProp = 'left';
+const upOffsetProp = 'bottom';
+const downOffsetProp = 'top';
 
+let currentOffsetProp = rightOffsetProp;
 createInterval(snake);
 
 document.addEventListener('keydown', rotateSnake);
@@ -35,14 +40,16 @@ function createInterval(element) {
     let offset = -snakeWidth;
     let isAdded = false;
     let interval = setInterval(() => {
-        element.style.left = offset + 'px';
+        element.style[currentOffsetProp] = offset + 'px';
+        removeOppositeOffset(element);
         offset += 5;
         if (windowWidth <= snakeWidth + offset && !isAdded) {
             isAdded = true;
             let newSnake = document.createElement('div');
             newSnake.innerHTML = element.innerHTML;
             newSnake.classList = element.classList;
-            newSnake.style.left = -snakeWidth + 'px';
+            newSnake.style[currentOffsetProp] = -snakeWidth + 'px';
+            removeOppositeOffset(newSnake);
             document.body.appendChild(newSnake);
             createInterval(newSnake);
         }
@@ -62,6 +69,7 @@ function rotateSnake(event) {
                 snakes[i].classList.remove(['snake-right']);
                 snakes[i].classList.remove(['snake-top']);
              }
+             currentOffsetProp = leftOffsetProp;
             break;
         } 
         case up: {
@@ -70,6 +78,7 @@ function rotateSnake(event) {
                 snakes[i].classList.remove(['snake-right']);
                snakes[i].classList.add(['snake-top']);  
             }
+            currentOffsetProp = upOffsetProp;
             break;
         }
         case right: {
@@ -77,7 +86,8 @@ function rotateSnake(event) {
                 snakes[i].classList.remove(['snake-bottom']);
                 snakes[i].classList.remove(['snake-top']);
                 snakes[i].classList.add(['snake-right']);  
-             }
+             } 
+             currentOffsetProp = rightOffsetProp;
             break;
         }
         case down: {
@@ -86,7 +96,35 @@ function rotateSnake(event) {
                 snakes[i].classList.remove(['snake-top']);
                 snakes[i].classList.add(['snake-bottom']);  
              }
+             currentOffsetProp = downOffsetProp;
             break;
         }
     }
 }
+
+function removeOppositeOffset(element) {
+    switch (currentOffsetProp) {
+        case rightOffsetProp: {
+            element.style[leftOffsetProp] = '';
+            break;
+        }
+        case leftOffsetProp: {
+            element.style[rightOffsetProp] = '';
+            break;
+        }
+        case upOffsetProp: {
+            element.style[downOffsetProp] = '';
+            break;
+        }
+        case downOffsetProp: {
+            element.style[upOffsetProp] = '';
+            break;
+        }
+    
+        default:
+            break;
+    }
+} 
+
+
+    
